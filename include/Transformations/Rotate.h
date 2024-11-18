@@ -13,9 +13,9 @@ public:
 		this->axis = axis;
 	}
 	glm::mat4 execute(glm::mat4 matrixInput) override {
-		return glm::rotate(matrixInput, angle, axis);
+		return glm::rotate(matrixInput, glm::radians(angle), axis);
 	}
-private:
+protected:
 	float angle;
 	glm::vec3 axis;
 };

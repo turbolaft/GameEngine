@@ -3,6 +3,8 @@
 #include "Shader.h"
 #include "Model.h"
 #include "Camera.h"
+#include "Controller.h"
+#include "Light.h"
 
 #include <vector>
 
@@ -12,13 +14,15 @@ public:
 	virtual void init(GLFWwindow*) = 0;
 	virtual void render();
 	virtual void release();
-	virtual void handleInput(GLFWwindow* window);
 	virtual void activate() {};
 	virtual void deactivate() {};
+	Controller* getController() { return controller; }
 protected:
 	std::vector<Shader*> shaders;
 	std::vector<Model*> models;
+	std::vector<Light*> lights;
 	GLFWwindow* window;
 	Camera* camera = new Camera(glm::vec3(0.0f, 3.0f, 6.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f);
+	Controller* controller;
 };
 

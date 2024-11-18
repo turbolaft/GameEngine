@@ -2,12 +2,15 @@
 #include "Light.h"
 #include "CameraObserver.h"
 
-class PointLight : public Light, public CameraObserver
+class PointLight : public Light
 {
 public:
+	PointLight(glm::vec3 position, glm::vec3 color);
+	PointLight(glm::vec3 position, glm::vec3 color, int8_t iterator);
+	PointLight(glm::vec3 position, glm::vec3 color, int8_t iterator, Model* model);
 	glm::vec3 getPosition();
 	void setPosition(glm::vec3 position);
-	void update(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPosition) override;
+	void addObserver(Model* light);
 
 protected:
 	glm::vec3 position;

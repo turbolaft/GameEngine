@@ -16,9 +16,6 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{61294e91-6bae-4d1f-a00f-2878d2a42fbd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Coordinates">
-      <UniqueIdentifier>{0024d393-3145-41e2-85e3-54a046b73c4f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Objects">
       <UniqueIdentifier>{9cbfebfd-d932-4f4b-b545-7f592ba22a8b}</UniqueIdentifier>
     </Filter>
@@ -54,6 +51,9 @@
     </Filter>
     <Filter Include="Header Files\Lights">
       <UniqueIdentifier>{ba2395a0-72ae-4171-8e0d-4139a69c12e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Models">
+      <UniqueIdentifier>{e44be0a3-6d02-4254-86f3-dc9f4c7c0ed2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -114,17 +114,14 @@
     <ClCompile Include="src\Transformations\TransformationComponent.cpp">
       <Filter>Source Files\Transformations</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\Controller.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lights\DirectionalLight.cpp">
+      <Filter>Source Files\Lights</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Models\sphereCoordinates.h">
-      <Filter>Coordinates</Filter>
-    </ClInclude>
-    <ClInclude Include="treeCoordinates.h">
-      <Filter>Coordinates</Filter>
-    </ClInclude>
-    <ClInclude Include="bushesCoordinates.h">
-      <Filter>Coordinates</Filter>
-    </ClInclude>
     <ClInclude Include="include\Core\Application.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
@@ -185,14 +182,47 @@
     <ClInclude Include="include\Transformations\Transformation.h">
       <Filter>Header Files\Transformations</Filter>
     </ClInclude>
-    <ClInclude Include="include\Transformations\TransformationComponent.h">
-      <Filter>Header Files\Transformations</Filter>
-    </ClInclude>
     <ClInclude Include="include\Transformations\Translate.h">
       <Filter>Header Files\Transformations</Filter>
     </ClInclude>
     <ClInclude Include="include\Core\CameraObserver.h">
       <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\Controller.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\bushes.h">
+      <Filter>Resource Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\gift.h">
+      <Filter>Resource Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\plain.h">
+      <Filter>Resource Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\sphere.h">
+      <Filter>Resource Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\suzi_flat.h">
+      <Filter>Resource Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\suzi_smooth.h">
+      <Filter>Resource Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\tree.h">
+      <Filter>Resource Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Transformations\DynamicRotate.h">
+      <Filter>Header Files\Transformations</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Transformations\TransformationComponent.h">
+      <Filter>Header Files\Transformations</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Lights\LightObserver.h">
+      <Filter>Header Files\Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Lights\DirectionalLight.h">
+      <Filter>Header Files\Lights</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

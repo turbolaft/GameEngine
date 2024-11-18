@@ -1,5 +1,6 @@
 #include "Shader.h"
 
+#include "Light.h"
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath) {
 	std::string vertexCode;
@@ -92,15 +93,8 @@ void Shader::update(const glm::mat4& view, const glm::mat4& projection, const gl
 
 void Shader::update(const glm::vec3& position, const glm::vec3& color) {
 	use();
-	setUniform("lightPos", position);
-	setUniform("lightColor", color);
-}
-
-void Shader::update(float constant, float linear, float quadratic) {
-	use();
-	setUniform("constant", constant);
-	setUniform("linear", linear);
-	setUniform("quadratic", quadratic);
+	setUniform("light.position", position);
+	setUniform("light.color", color);
 }
 
 void Shader::update(const glm::vec3& cameraPos) {
@@ -108,15 +102,18 @@ void Shader::update(const glm::vec3& cameraPos) {
 	setUniform("viewPos", cameraPos);
 }
 
-void Shader::update(const glm::vec3& position, const glm::vec3& color, float constant, float linear, float quadratic, int i) {
+void Shader::update(const glm::vec3& position, const glm::vec3& color, int8_t type, int8_t i) {
 	use();
 	std::string lightIndex = "lights[" + std::to_string(i) + "]";
-	setUniform(lightIndex + ".position", position);
-	setUniform(lightIndex + ".color", color);
-	setUniform(lightIndex + ".constant", constant);
-	setUniform(lightIndex + ".linear", linear);
-	setUniform(lightIndex + ".quadratic", quadratic);
 
+	setUniform(lightIndex + ".type", type);
+	if (type == POINT_LIGHT) {
+		setUniform(lightIndex + ".position", position);
+	}
+	else if (type == DIRECTIONAL_LIGHT) {
+		setUniform(lightIndex + ".direction", position);
+	}
+	setUniform(lightIndex + ".color", color);
 }
 
 void Shader::checkShaderCompileError(GLuint shader, const std::string& type) {

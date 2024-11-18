@@ -14,7 +14,11 @@ glm::mat4 TransformationComponent::execute(glm::mat4 matrixInput)
 {
 	glm::mat4 result = matrixInput;
 	for (Transformation* child : children) {
-		result *= child->execute(result);
+		result = child->execute(result);
+
+		if (child->IsDynamic()) {
+			isDynamic = true;
+		}
 	}
 	return result;
 }

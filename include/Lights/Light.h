@@ -2,18 +2,33 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include "Shader.h"
+#include "LightObserver.h"
+#include "Model.h"
+
+#define POINT_LIGHT 0
+#define DIRECTIONAL_LIGHT 1
+#define SPOT_LIGHT 2
 
 class Light
 {
 public:
+	Light(glm::vec3 color);
+	Light(glm::vec3 color, int8_t iterator);
+	Light(glm::vec3 color, int8_t iterator, Model* model);
 	void setColor(glm::vec3 color);
 	glm::vec3 getColor();
-	void addObserver(Shader* light);
-	void removeObserver(Shader* light);
+	virtual void addObserver(Model* light) = 0;
+	void removeObserver(Model* light);
+	void setModel(Model* model);
+	virtual void draw();
+
+
 
 protected:
 	glm::vec3 color;
 	virtual void notifyObservers() = 0;
-	std::vector<Shader*> observers;
+	std::vector<LightObserver*> observers;
+	int8_t iterator;
+	Model* model;
 };
 

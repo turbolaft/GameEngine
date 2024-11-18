@@ -1,30 +1,24 @@
 #include "DrawableObject.h"
 
+#include "TransformationComponent.h"
+
 DrawableObject::DrawableObject()
 {
-	model = glm::mat4(1.0f);
 	view = glm::mat4(1.0f);
 	projection = glm::mat4(1.0f);
+	transformation = nullptr;
+	shader = nullptr;
 }
 
-DrawableObject::DrawableObject(Shader shader) : DrawableObject()
+DrawableObject::DrawableObject(Shader* shader) : DrawableObject()
 {
 	this->setShader(shader);
 }
 
-void DrawableObject::draw()
-{
-	shader->use();
-	shader->setUniform("model", model);
-	shader->setUniform("view", view);
-	shader->setUniform("projection", projection);
-}
-
 void DrawableObject::update()
 {
-	// Update the model matrix
 	this->shader->use();
-	this->shader->setUniform("model", model);
+	this->shader->setUniform("model", transformation == nullptr ? glm::mat4(1.0f) : transformation->execute(glm::mat4(1.0f)));
 	this->shader->setUniform("view", view);
 	this->shader->setUniform("projection", projection);
 }
@@ -34,17 +28,22 @@ Shader* DrawableObject::getShader()
 	return shader;
 }
 
-void DrawableObject::setShader(Shader shader)
+void DrawableObject::setShader(Shader* shader)
 {
-	this->shader = new Shader(shader);
+	this->shader = shader;
 
 	// Update the shader
 	this->update();
 }
 
-void DrawableObject::setModel(glm::mat4 model)
+void DrawableObject::setModel(Transformation* transformation)
 {
-	this->model = model;
+	if (this->transformation != nullptr)
+	{
+		delete this->transformation;
+	}
+
+	this->transformation = transformation;
 }
 
 void DrawableObject::setView(glm::mat4 view)
@@ -59,7 +58,7 @@ void DrawableObject::setProjection(glm::mat4 projection)
 
 glm::mat4 DrawableObject::getModel()
 {
-	return model;
+	return transformation == nullptr ? glm::mat4(1.0f) : transformation->execute(glm::mat4(1.0f));
 }
 
 glm::mat4 DrawableObject::getView()

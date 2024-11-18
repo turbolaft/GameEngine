@@ -5,6 +5,8 @@
 #include <iostream>
 #include <vector>
 
+#include "Scene.h"
+
 class Application
 {
 public:
@@ -16,5 +18,10 @@ public:
 private:
 	GLFWwindow* window;
 	static float deltaTime;
+	int activeScene = 0;
+	Scene* scenes[3];
+
+	void processInput();
+	void mouseCallback(GLFWwindow*, double, double);
 };
 

@@ -1,8 +1,44 @@
 #include "PointLight.h"
 
+#include "Transformation.h"
+
+PointLight::PointLight(glm::vec3 position, glm::vec3 color)
+	: Light(color)
+{
+	this->setPosition(position);
+}
+
+PointLight::PointLight(glm::vec3 position, glm::vec3 color, int8_t iterator)
+	: Light(color, iterator)
+{
+	this->setPosition(position);
+}
+
+PointLight::PointLight(glm::vec3 position, glm::vec3 color, int8_t iterator, Model* model)
+	: Light(color, iterator, model)
+{
+	this->setPosition(position);
+}
+
 void PointLight::notifyObservers() {
-	for (Shader* observer : observers) {
-		observer->update(position, color);
+	for (LightObserver* observer : observers) {
+		if (iterator != -1) {
+			observer->onLightChange(position, color, POINT_LIGHT, iterator);
+		}
+		else {
+			observer->onLightChange(position, color, POINT_LIGHT);
+		}
+	}
+}
+
+void PointLight::addObserver(Model* light) {
+	observers.push_back(light);
+
+	if (iterator != -1) {
+		light->onLightChange(position, color, POINT_LIGHT, iterator);
+	}
+	else {
+		light->onLightChange(position, color, POINT_LIGHT);
 	}
 }
 
@@ -12,11 +48,6 @@ glm::vec3 PointLight::getPosition() {
 
 void PointLight::setPosition(glm::vec3 position) {
 	this->position = position;
-	notifyObservers();
-}
 
-void PointLight::update(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPosition) {
-	for (Shader* observer : observers) {
-		observer->update(view, projection, cameraPosition);
-	}
+	notifyObservers();
 }

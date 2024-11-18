@@ -30,7 +30,7 @@ void Sphere::draw() {
 	//model = glm::translate(model, glm::vec3(1.0f, 0.5f, 0.0f));
 	//std::cout << "Model: " << model[0][0] << " " << model[0][1] << " " << model[0][2] << " " << model[0][3] << std::endl;
 	shader->use();
-	shader->setUniform("model", model);
+	//shader->setUniform("model", model);
 	glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 2880);
 	glBindVertexArray(0);

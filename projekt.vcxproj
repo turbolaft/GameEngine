@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>$(ProjectDir)..\Libraries;$(LibraryPath)</LibraryPath>
-    <IncludePath>D:\programming\C++\OpenGL\projekt\include\Core;D:\programming\C++\OpenGL\projekt\include\Lights;D:\programming\C++\OpenGL\projekt\include\Objects;D:\programming\C++\OpenGL\projekt\include\Scenes;D:\programming\C++\OpenGL\projekt\include\ShaderManagement;D:\programming\C++\OpenGL\projekt\include\Transformations;$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)\include\Core;$(ProjectDir)\include\Lights;$(ProjectDir)\include\Objects;$(ProjectDir)\include\Scenes;$(ProjectDir)\include\ShaderManagement;$(ProjectDir)\include\Transformations;$(ProjectDir);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -135,7 +135,9 @@
   <ItemGroup>
     <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="src\Core\Camera.cpp" />
+    <ClCompile Include="src\Core\Controller.cpp" />
     <ClCompile Include="src\Core\main.cpp" />
+    <ClCompile Include="src\Lights\DirectionalLight.cpp" />
     <ClCompile Include="src\Lights\Light.cpp" />
     <ClCompile Include="src\Lights\PointLight.cpp" />
     <ClCompile Include="src\Objects\Bush.cpp" />
@@ -154,12 +156,13 @@
     <ClCompile Include="src\Transformations\TransformationComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Models\sphereCoordinates.h" />
-    <ClInclude Include="bushesCoordinates.h" />
     <ClInclude Include="include\Core\Application.h" />
     <ClInclude Include="include\Core\Camera.h" />
     <ClInclude Include="include\Core\CameraObserver.h" />
+    <ClInclude Include="include\Core\Controller.h" />
+    <ClInclude Include="include\Lights\DirectionalLight.h" />
     <ClInclude Include="include\Lights\Light.h" />
+    <ClInclude Include="include\Lights\LightObserver.h" />
     <ClInclude Include="include\Lights\PointLight.h" />
     <ClInclude Include="include\Objects\Bush.h" />
     <ClInclude Include="include\Objects\DrawableObject.h" />
@@ -174,12 +177,19 @@
     <ClInclude Include="include\Scenes\SceneThree.h" />
     <ClInclude Include="include\Scenes\SceneTwo.h" />
     <ClInclude Include="include\ShaderManagement\Shader.h" />
+    <ClInclude Include="include\Transformations\DynamicRotate.h" />
     <ClInclude Include="include\Transformations\Rotate.h" />
     <ClInclude Include="include\Transformations\Scale.h" />
     <ClInclude Include="include\Transformations\Transformation.h" />
     <ClInclude Include="include\Transformations\TransformationComponent.h" />
     <ClInclude Include="include\Transformations\Translate.h" />
-    <ClInclude Include="treeCoordinates.h" />
+    <ClInclude Include="Models\bushes.h" />
+    <ClInclude Include="Models\gift.h" />
+    <ClInclude Include="Models\plain.h" />
+    <ClInclude Include="Models\sphere.h" />
+    <ClInclude Include="Models\suzi_flat.h" />
+    <ClInclude Include="Models\suzi_smooth.h" />
+    <ClInclude Include="Models\tree.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragmentShaderLightingLambert.glsl" />

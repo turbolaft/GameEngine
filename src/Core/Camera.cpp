@@ -87,7 +87,7 @@ void Camera::notifyObservers()
 {
 	for (auto observer : observers)
 	{
-		observer->update(getViewMatrix(), getProjectionMatrix(), position);
+		observer->onCameraChange(getViewMatrix(), getProjectionMatrix(), position);
 	}
 }
 

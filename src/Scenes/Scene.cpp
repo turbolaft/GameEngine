@@ -4,6 +4,10 @@ void Scene::render() {
 	for (auto model : models) {
 		model->draw();
 	}
+
+	for (auto light : lights) {
+		light->draw();
+	}
 }
 
 void Scene::release() {
@@ -14,8 +18,4 @@ void Scene::release() {
 		delete model;
 	}
 	delete camera;
-}
-
-void Scene::handleInput(GLFWwindow* window) {
-	
 }

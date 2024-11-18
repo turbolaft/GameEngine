@@ -17,7 +17,12 @@ void Tree::createModel(const float points[], int size) {
 }
 
 void Tree::draw() {
+
 	shader->use();
+	if (transformation && transformation->IsDynamic()) {
+		this->shader->setUniform("model", transformation == nullptr ? glm::mat4(1.0f) : transformation->execute(glm::mat4(1.0f)));
+	}
+
 	glBindVertexArray(VAO);
 	glDrawArrays(GL_TRIANGLES, 0, 92814);
 	glBindVertexArray(0);

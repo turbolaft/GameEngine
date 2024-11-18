@@ -10,8 +10,8 @@
 #include "Sphere.h"
 #include "Tree.h"
 
-#include "sphereCoordinates.h"
-#include "treeCoordinates.h"
+#include "sphere.h"
+#include "Models/tree.h"
 
 class SceneOne : public Scene
 {

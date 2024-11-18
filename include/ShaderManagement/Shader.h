@@ -9,9 +9,7 @@
 
 #include <glm/glm.hpp>
 
-#include "CameraObserver.h"
-
-class Shader : public CameraObserver
+class Shader
 {
 public:
 	Shader(const char* vertexPath, const char* fragmentPath);
@@ -26,8 +24,7 @@ public:
 	void update(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPosition);
 	void update(const glm::vec3& position, const glm::vec3& color);
 	void update(const glm::vec3& cameraPos);
-	void update(float constant, float linear, float quadratic);
-	void update(const glm::vec3& position, const glm::vec3& color, float constant, float linear, float quadratic, int i);
+	void update(const glm::vec3& position, const glm::vec3& color, int8_t type, int8_t i);
 private:
 	GLuint shaderProgram;
 
