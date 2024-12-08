@@ -17,6 +17,8 @@ class SceneOne : public Scene
 {
 public:
 	void init(GLFWwindow*);
+	void activate() override;
+	void deactivate() override;
 private:
 
 	float points[9] = {

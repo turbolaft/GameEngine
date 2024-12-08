@@ -13,6 +13,6 @@ public:
 	glm::mat4 execute(glm::mat4 matrixInput) override {
 		return glm::translate(matrixInput, translation);
 	}
-private:
+protected:
 	glm::vec3 translation;
 };

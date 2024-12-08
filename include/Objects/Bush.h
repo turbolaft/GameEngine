@@ -6,5 +6,5 @@ class Bush :
 {
 public:
 	void createModel(const float points[], int size) override;
-	void draw() override;
+	void draw();
 };

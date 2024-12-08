@@ -18,9 +18,11 @@ public:
 	void createProgram(const char* vertex_shader, const char* fragment_shader);
 	void deleteProgram();
 	void use();
+	void unuse();
 	void setUniform(const std::string& name, glm::mat4 value);
 	void setUniform(const std::string& name, glm::vec3 value);
 	void setUniform(const std::string& name, float value);
+	void setUniform(const std::string& name, unsigned int value);
 	void update(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPosition);
 	void update(const glm::vec3& position, const glm::vec3& color);
 	void update(const glm::vec3& cameraPos);

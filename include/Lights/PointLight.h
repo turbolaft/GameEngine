@@ -11,9 +11,12 @@ public:
 	glm::vec3 getPosition();
 	void setPosition(glm::vec3 position);
 	void addObserver(Model* light);
-
+	void setDynamicDirection(glm::vec3 direction, glm::vec3 ends[]);
+	void dynamicMove();
 protected:
 	glm::vec3 position;
+	glm::vec3 dynamicDirection;
+	glm::vec3 ends[2];
 	virtual void notifyObservers();
 };
 

@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>$(ProjectDir)..\Libraries;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(ProjectDir)\include\Core;$(ProjectDir)\include\Lights;$(ProjectDir)\include\Objects;$(ProjectDir)\include\Scenes;$(ProjectDir)\include\ShaderManagement;$(ProjectDir)\include\Transformations;$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)\include\Core;$(ProjectDir)\include\Lights;$(ProjectDir)\include\Objects;$(ProjectDir)\include\Scenes;$(ProjectDir)\include\ShaderManagement;$(ProjectDir)\include\Transformations;$(ProjectDir)\resources;$(ProjectDir)\include\ObjectComponents;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -85,7 +85,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -137,14 +137,20 @@
     <ClCompile Include="src\Core\Camera.cpp" />
     <ClCompile Include="src\Core\Controller.cpp" />
     <ClCompile Include="src\Core\main.cpp" />
+    <ClCompile Include="src\Core\stb_image.cpp" />
     <ClCompile Include="src\Lights\DirectionalLight.cpp" />
     <ClCompile Include="src\Lights\Light.cpp" />
     <ClCompile Include="src\Lights\PointLight.cpp" />
+    <ClCompile Include="src\ObjectComponents\DrawableObject.cpp" />
+    <ClCompile Include="src\ObjectComponents\IndexBuffer.cpp" />
+    <ClCompile Include="src\ObjectComponents\Model.cpp" />
+    <ClCompile Include="src\ObjectComponents\Texture.cpp" />
+    <ClCompile Include="src\ObjectComponents\VertexArray.cpp" />
+    <ClCompile Include="src\ObjectComponents\VertexBuffer.cpp" />
     <ClCompile Include="src\Objects\Bush.cpp" />
-    <ClCompile Include="src\Objects\DrawableObject.cpp" />
-    <ClCompile Include="src\Objects\Model.cpp" />
     <ClCompile Include="src\Objects\Rectangle.cpp" />
     <ClCompile Include="src\Objects\Sphere.cpp" />
+    <ClCompile Include="src\Objects\Tetrahedron.cpp" />
     <ClCompile Include="src\Objects\Tree.cpp" />
     <ClCompile Include="src\Objects\Triangle.cpp" />
     <ClCompile Include="src\Scenes\Scene.cpp" />
@@ -160,15 +166,22 @@
     <ClInclude Include="include\Core\Camera.h" />
     <ClInclude Include="include\Core\CameraObserver.h" />
     <ClInclude Include="include\Core\Controller.h" />
+    <ClInclude Include="include\Core\Skybox.h" />
     <ClInclude Include="include\Lights\DirectionalLight.h" />
     <ClInclude Include="include\Lights\Light.h" />
     <ClInclude Include="include\Lights\LightObserver.h" />
     <ClInclude Include="include\Lights\PointLight.h" />
+    <ClInclude Include="include\ObjectComponents\DrawableObject.h" />
+    <ClInclude Include="include\ObjectComponents\IndexBuffer.h" />
+    <ClInclude Include="include\ObjectComponents\Model.h" />
+    <ClInclude Include="include\ObjectComponents\Texture.h" />
+    <ClInclude Include="include\ObjectComponents\VertexArray.h" />
+    <ClInclude Include="include\ObjectComponents\VertexBuffer.h" />
+    <ClInclude Include="include\ObjectComponents\VertexBufferLayout.h" />
     <ClInclude Include="include\Objects\Bush.h" />
-    <ClInclude Include="include\Objects\DrawableObject.h" />
-    <ClInclude Include="include\Objects\Model.h" />
     <ClInclude Include="include\Objects\Rectangle.h" />
     <ClInclude Include="include\Objects\Sphere.h" />
+    <ClInclude Include="include\Objects\Tetrahedron.h" />
     <ClInclude Include="include\Objects\Tree.h" />
     <ClInclude Include="include\Objects\Triangle.h" />
     <ClInclude Include="include\Scenes\Scene.h" />
@@ -178,28 +191,40 @@
     <ClInclude Include="include\Scenes\SceneTwo.h" />
     <ClInclude Include="include\ShaderManagement\Shader.h" />
     <ClInclude Include="include\Transformations\DynamicRotate.h" />
+    <ClInclude Include="include\Transformations\DynamicTranslate.h" />
     <ClInclude Include="include\Transformations\Rotate.h" />
     <ClInclude Include="include\Transformations\Scale.h" />
     <ClInclude Include="include\Transformations\Transformation.h" />
     <ClInclude Include="include\Transformations\TransformationComponent.h" />
     <ClInclude Include="include\Transformations\Translate.h" />
-    <ClInclude Include="Models\bushes.h" />
-    <ClInclude Include="Models\gift.h" />
-    <ClInclude Include="Models\plain.h" />
-    <ClInclude Include="Models\sphere.h" />
-    <ClInclude Include="Models\suzi_flat.h" />
-    <ClInclude Include="Models\suzi_smooth.h" />
-    <ClInclude Include="Models\tree.h" />
+    <ClInclude Include="resources\Models\bushes.h" />
+    <ClInclude Include="resources\Models\gift.h" />
+    <ClInclude Include="resources\Models\plain.h" />
+    <ClInclude Include="resources\Models\Rectangle.h" />
+    <ClInclude Include="resources\Models\sphere.h" />
+    <ClInclude Include="resources\Models\suzi_flat.h" />
+    <ClInclude Include="resources\Models\suzi_smooth.h" />
+    <ClInclude Include="resources\Models\tetrahedron.h" />
+    <ClInclude Include="resources\Models\tree.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\fragmentShaderDefault.glsl" />
     <None Include="Shaders\fragmentShaderLightingLambert.glsl" />
     <None Include="Shaders\fragmentShaderLightingPhong.glsl" />
     <None Include="Shaders\fragmentShaderPhongMultiple.glsl" />
     <None Include="Shaders\fragmentShaderSphere.glsl" />
+    <None Include="Shaders\fragmentShaderTextureDefault.glsl" />
+    <None Include="Shaders\fragmentShaderTextureMultiple.glsl" />
     <None Include="Shaders\vertexShaderCamera.glsl" />
+    <None Include="Shaders\vertexShaderDefault.glsl" />
     <None Include="Shaders\vertexShaderLightingPhong.glsl" />
     <None Include="Shaders\vertexShaderSphere.glsl" />
+    <None Include="Shaders\vertexShaderTextureDefault.glsl" />
+    <None Include="Shaders\vertexShaderTexturePhong.glsl" />
     <None Include="vertexShaderDefault.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\Textures\wooden_fence.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

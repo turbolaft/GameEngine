@@ -5,7 +5,10 @@ in vec4 ex_worldNormal;
 
 out vec4 out_Color;
 
+in vec2 uvc;
+
 uniform vec3 cameraPosition;
+uniform sampler2D textureUnitID;
 
 #define NUM_LIGHTS 5
 #define POINT_LIGHT 1U
@@ -90,5 +93,7 @@ void main(void) {
 		} 
     }
 
-    out_Color = result;
+    vec4 textureColor = texture(textureUnitID, uvc);
+
+    out_Color = result * textureColor;
 }

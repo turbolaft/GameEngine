@@ -1,6 +1,7 @@
 #include "PointLight.h"
 
 #include "Transformation.h"
+#include "Translate.h"
 
 PointLight::PointLight(glm::vec3 position, glm::vec3 color)
 	: Light(color)
@@ -50,4 +51,28 @@ void PointLight::setPosition(glm::vec3 position) {
 	this->position = position;
 
 	notifyObservers();
+}
+
+void PointLight::setDynamicDirection(glm::vec3 direction, glm::vec3 ends[]) {
+	this->dynamicDirection = direction;
+	this->ends[0] = ends[0];
+	this->ends[1] = ends[1];
+}
+
+void PointLight::dynamicMove() {
+	if (dynamicDirection != glm::vec3(0.0f)) {
+		position += dynamicDirection;
+
+		if (position.x > ends[1].x || position.x < ends[0].x) {
+			dynamicDirection.x *= -1;
+		}
+		if (position.y > ends[1].x || position.y < ends[0].y) {
+			dynamicDirection.y *= -1;
+		}
+		if (position.z > ends[1].x || position.z < ends[0].z) {
+			dynamicDirection.z *= -1;
+		}
+
+		notifyObservers();
+	}
 }

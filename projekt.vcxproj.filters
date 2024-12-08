@@ -52,18 +52,21 @@
     <Filter Include="Header Files\Lights">
       <UniqueIdentifier>{ba2395a0-72ae-4171-8e0d-4139a69c12e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ObjectComponents">
+      <UniqueIdentifier>{83c996e2-57e3-4674-82f8-085cdc135751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ObjectComponents">
+      <UniqueIdentifier>{af4c4bc1-14a9-4464-9993-7cdb6e597808}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Textures">
+      <UniqueIdentifier>{ff33dd66-0640-434e-a380-7ffe2b0191b9}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Resource Files\Models">
-      <UniqueIdentifier>{e44be0a3-6d02-4254-86f3-dc9f4c7c0ed2}</UniqueIdentifier>
+      <UniqueIdentifier>{9886e511-276e-4644-8eb8-b6827337f4c0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Objects\Bush.cpp">
-      <Filter>Source Files\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Objects\DrawableObject.cpp">
-      <Filter>Source Files\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Objects\Model.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="src\Objects\Rectangle.cpp">
@@ -120,6 +123,30 @@
     <ClCompile Include="src\Lights\DirectionalLight.cpp">
       <Filter>Source Files\Lights</Filter>
     </ClCompile>
+    <ClCompile Include="src\ObjectComponents\DrawableObject.cpp">
+      <Filter>Source Files\ObjectComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ObjectComponents\Model.cpp">
+      <Filter>Source Files\ObjectComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ObjectComponents\IndexBuffer.cpp">
+      <Filter>Source Files\ObjectComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ObjectComponents\VertexArray.cpp">
+      <Filter>Source Files\ObjectComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ObjectComponents\VertexBuffer.cpp">
+      <Filter>Source Files\ObjectComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\stb_image.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ObjectComponents\Texture.cpp">
+      <Filter>Source Files\ObjectComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Objects\Tetrahedron.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\Application.h">
@@ -135,12 +162,6 @@
       <Filter>Header Files\Lights</Filter>
     </ClInclude>
     <ClInclude Include="include\Objects\Bush.h">
-      <Filter>Header Files\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Objects\DrawableObject.h">
-      <Filter>Header Files\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Objects\Model.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="include\Objects\Rectangle.h">
@@ -191,27 +212,6 @@
     <ClInclude Include="include\Core\Controller.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Models\bushes.h">
-      <Filter>Resource Files\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\gift.h">
-      <Filter>Resource Files\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\plain.h">
-      <Filter>Resource Files\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\sphere.h">
-      <Filter>Resource Files\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\suzi_flat.h">
-      <Filter>Resource Files\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\suzi_smooth.h">
-      <Filter>Resource Files\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\tree.h">
-      <Filter>Resource Files\Models</Filter>
-    </ClInclude>
     <ClInclude Include="include\Transformations\DynamicRotate.h">
       <Filter>Header Files\Transformations</Filter>
     </ClInclude>
@@ -223,6 +223,63 @@
     </ClInclude>
     <ClInclude Include="include\Lights\DirectionalLight.h">
       <Filter>Header Files\Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ObjectComponents\DrawableObject.h">
+      <Filter>Header Files\ObjectComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ObjectComponents\Model.h">
+      <Filter>Header Files\ObjectComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ObjectComponents\IndexBuffer.h">
+      <Filter>Header Files\ObjectComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ObjectComponents\VertexBufferLayout.h">
+      <Filter>Header Files\ObjectComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ObjectComponents\VertexArray.h">
+      <Filter>Header Files\ObjectComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ObjectComponents\Texture.h">
+      <Filter>Header Files\ObjectComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\Skybox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ObjectComponents\VertexBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Objects\Tetrahedron.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Transformations\DynamicTranslate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resources\Models\bushes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resources\Models\gift.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resources\Models\plain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resources\Models\Rectangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resources\Models\sphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resources\Models\suzi_flat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resources\Models\suzi_smooth.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resources\Models\tetrahedron.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resources\Models\tree.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -250,5 +307,28 @@
     <None Include="Shaders\fragmentShaderPhongMultiple.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Shaders\fragmentShaderDefault.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\fragmentShaderTextureDefault.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\vertexShaderDefault.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\vertexShaderTextureDefault.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\vertexShaderTexturePhong.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\fragmentShaderTextureMultiple.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\Textures\wooden_fence.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

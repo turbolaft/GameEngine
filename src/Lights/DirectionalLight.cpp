@@ -1,10 +1,16 @@
 #include "DirectionalLight.h"
 
-DirectionalLight::DirectionalLight(glm::vec3 direction, glm::vec3 color) : Light(color), direction(direction) {}
+DirectionalLight::DirectionalLight(glm::vec3 direction, glm::vec3 color) : Light(color) {
+	setDirection(direction);
+}
 
-DirectionalLight::DirectionalLight(glm::vec3 direction, glm::vec3 color, int8_t iterator) : Light(color, iterator), direction(direction) {}
+DirectionalLight::DirectionalLight(glm::vec3 direction, glm::vec3 color, int8_t iterator) : Light(color, iterator) {
+	setDirection(direction);
+}
 
-DirectionalLight::DirectionalLight(glm::vec3 direction, glm::vec3 color, int8_t iterator, Model* model) : Light(color, iterator, model), direction(direction) {}
+DirectionalLight::DirectionalLight(glm::vec3 direction, glm::vec3 color, int8_t iterator, Model* model) : Light(color, iterator, model) {
+	setDirection(direction);
+}
 
 glm::vec3 DirectionalLight::getDirection() {
 	return direction;

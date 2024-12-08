@@ -5,9 +5,9 @@
 #include "LightObserver.h"
 #include "Model.h"
 
-#define POINT_LIGHT 0
-#define DIRECTIONAL_LIGHT 1
-#define SPOT_LIGHT 2
+#define POINT_LIGHT 1
+#define DIRECTIONAL_LIGHT 2
+#define SPOT_LIGHT 3
 
 class Light
 {
@@ -21,7 +21,6 @@ public:
 	void removeObserver(Model* light);
 	void setModel(Model* model);
 	virtual void draw();
-
 
 
 protected:

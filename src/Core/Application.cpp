@@ -25,7 +25,7 @@ void Application::init() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    this->window = glfwCreateWindow(800, 600, "Hello World - GLEW and GLFW", nullptr, nullptr);
+    this->window = glfwCreateWindow(1000, 750, "Hello World - GLEW and GLFW", nullptr, nullptr);
     if (!window) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -73,14 +73,15 @@ void Application::run() {
     scenes[1]->init(window);
 	scenes[2]->init(window);
 
-    float lastFrame = glfwGetTime();
+    float lastFrame = (float) glfwGetTime();
+	scenes[0]->activate();
 	
 	// Z-buffer
     glEnable(GL_DEPTH_TEST);
     
     while (!glfwWindowShouldClose(window)) {
 
-		float currentFrame = glfwGetTime();
+		float currentFrame = (float) glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
         

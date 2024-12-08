@@ -24,8 +24,8 @@ void SceneThree::init(GLFWwindow* window) {
 	};
 
 	for (int i = 0; i < 4; i++) {
-		shaders.push_back(new Shader("./Shaders/vertexShaderLightingPhong.glsl", "./Shaders/fragmentShaderLightingPhong.glsl"));
-		shaders[i]->update(cameraPosition);
+		Shader* shader = new Shader("./Shaders/vertexShaderLightingPhong.glsl", "./Shaders/fragmentShaderLightingPhong.glsl");
+		shader->update(cameraPosition);
 
 		Transformation* transformation = new TransformationComponent();
 		transformation->addChild(new Translate(translations[i]));
@@ -34,22 +34,17 @@ void SceneThree::init(GLFWwindow* window) {
 		Model* sphereModel = new Sphere();
 
 		sphereModel->createModel(sphere, sizeof(float) * 17280);
-		sphereModel->setShader(shaders[i]);
+		sphereModel->setShader(shader);
 		sphereModel->setModel(transformation);
 		sphereModel->setProjection(camera->getProjectionMatrix());
 		sphereModel->setView(camera->getViewMatrix());
-
 		sphereModel->update();
 
-		models.push_back(sphereModel);
-		camera->addObserver(models[i]);
+		this->addModel(sphereModel);
 	}
 
 	PointLight* pointLight = new PointLight(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-
-	for (auto model : models) {
-		pointLight->addObserver(model);
-	}
+	this->addLight(pointLight);
 }
 
 void SceneThree::activate()

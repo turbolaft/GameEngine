@@ -100,16 +100,16 @@ void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
 	if (firstMouse)
 	{
-		lastX = xpos;
-		lastY = ypos;
+		lastX = (float) xpos;
+		lastY = (float) ypos;
 		firstMouse = false;
 	}
 
-	float xoffset = xpos - lastX;
-	float yoffset = lastY - ypos; 
+	float xoffset = (float) xpos - lastX;
+	float yoffset = lastY - (float) ypos;
 
-	lastX = xpos;
-	lastY = ypos;
+	lastX = (float) xpos;
+	lastY = (float) ypos;
 
 	this->processMouseMovement(xoffset, yoffset);
 }

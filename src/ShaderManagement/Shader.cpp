@@ -72,6 +72,10 @@ void Shader::use() {
 	glUseProgram(shaderProgram);
 }
 
+void Shader::unuse() {
+	glUseProgram(0);
+}
+
 void Shader::setUniform(const std::string& name, glm::mat4 value) {
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram, name.c_str()), 1, GL_FALSE, &value[0][0]);
 }
@@ -82,6 +86,10 @@ void Shader::setUniform(const std::string& name, glm::vec3 value) {
 
 void Shader::setUniform(const std::string& name, float value) {
 	glUniform1f(glGetUniformLocation(shaderProgram, name.c_str()), value);
+}
+
+void Shader::setUniform(const std::string& name, unsigned int value) {
+	glUniform1ui(glGetUniformLocation(shaderProgram, name.c_str()), value);
 }
 
 void Shader::update(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPosition) {
@@ -106,7 +114,7 @@ void Shader::update(const glm::vec3& position, const glm::vec3& color, int8_t ty
 	use();
 	std::string lightIndex = "lights[" + std::to_string(i) + "]";
 
-	setUniform(lightIndex + ".type", type);
+	setUniform(lightIndex + ".type", (unsigned int) type);
 	if (type == POINT_LIGHT) {
 		setUniform(lightIndex + ".position", position);
 	}

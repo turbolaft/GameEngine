@@ -17,8 +17,10 @@ public:
 	virtual void activate() {};
 	virtual void deactivate() {};
 	Controller* getController() { return controller; }
+	void addModel(Model* model);
+	void addLight(Light* light);
+	void setUpModel(Model* model, Shader* shader, const float points[], int size, Transformation*);
 protected:
-	std::vector<Shader*> shaders;
 	std::vector<Model*> models;
 	std::vector<Light*> lights;
 	GLFWwindow* window;
