@@ -15,5 +15,6 @@ public:
 
 protected:
 	glm::vec3 direction;
-	virtual void notifyObservers();
+
+	void notifyObservers();
 };

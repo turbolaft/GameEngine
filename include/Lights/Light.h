@@ -9,6 +9,12 @@
 #define DIRECTIONAL_LIGHT 2
 #define SPOT_LIGHT 3
 
+#define PHONG 0U
+#define LAMBERT 1U
+#define BLINN_PHONG 2U
+
+class Model;
+
 class Light
 {
 public:

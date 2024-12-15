@@ -85,7 +85,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -137,13 +137,16 @@
     <ClCompile Include="src\Core\Camera.cpp" />
     <ClCompile Include="src\Core\Controller.cpp" />
     <ClCompile Include="src\Core\main.cpp" />
+    <ClCompile Include="src\Core\Skybox.cpp" />
     <ClCompile Include="src\Core\stb_image.cpp" />
     <ClCompile Include="src\Lights\DirectionalLight.cpp" />
     <ClCompile Include="src\Lights\Light.cpp" />
     <ClCompile Include="src\Lights\PointLight.cpp" />
     <ClCompile Include="src\ObjectComponents\DrawableObject.cpp" />
     <ClCompile Include="src\ObjectComponents\IndexBuffer.cpp" />
+    <ClCompile Include="src\ObjectComponents\Mesh.cpp" />
     <ClCompile Include="src\ObjectComponents\Model.cpp" />
+    <ClCompile Include="src\ObjectComponents\ModelObject.cpp" />
     <ClCompile Include="src\ObjectComponents\Texture.cpp" />
     <ClCompile Include="src\ObjectComponents\VertexArray.cpp" />
     <ClCompile Include="src\ObjectComponents\VertexBuffer.cpp" />
@@ -173,15 +176,16 @@
     <ClInclude Include="include\Lights\PointLight.h" />
     <ClInclude Include="include\ObjectComponents\DrawableObject.h" />
     <ClInclude Include="include\ObjectComponents\IndexBuffer.h" />
+    <ClInclude Include="include\ObjectComponents\Material.h" />
+    <ClInclude Include="include\ObjectComponents\Mesh.h" />
     <ClInclude Include="include\ObjectComponents\Model.h" />
+    <ClInclude Include="include\ObjectComponents\ModelObject.h" />
     <ClInclude Include="include\ObjectComponents\Texture.h" />
     <ClInclude Include="include\ObjectComponents\VertexArray.h" />
-    <ClInclude Include="include\ObjectComponents\VertexBuffer.h" />
     <ClInclude Include="include\ObjectComponents\VertexBufferLayout.h" />
     <ClInclude Include="include\Objects\Bush.h" />
     <ClInclude Include="include\Objects\Rectangle.h" />
     <ClInclude Include="include\Objects\Sphere.h" />
-    <ClInclude Include="include\Objects\Tetrahedron.h" />
     <ClInclude Include="include\Objects\Tree.h" />
     <ClInclude Include="include\Objects\Triangle.h" />
     <ClInclude Include="include\Scenes\Scene.h" />
@@ -191,7 +195,6 @@
     <ClInclude Include="include\Scenes\SceneTwo.h" />
     <ClInclude Include="include\ShaderManagement\Shader.h" />
     <ClInclude Include="include\Transformations\DynamicRotate.h" />
-    <ClInclude Include="include\Transformations\DynamicTranslate.h" />
     <ClInclude Include="include\Transformations\Rotate.h" />
     <ClInclude Include="include\Transformations\Scale.h" />
     <ClInclude Include="include\Transformations\Transformation.h" />
@@ -201,6 +204,7 @@
     <ClInclude Include="resources\Models\gift.h" />
     <ClInclude Include="resources\Models\plain.h" />
     <ClInclude Include="resources\Models\Rectangle.h" />
+    <ClInclude Include="resources\Models\skycube.h" />
     <ClInclude Include="resources\Models\sphere.h" />
     <ClInclude Include="resources\Models\suzi_flat.h" />
     <ClInclude Include="resources\Models\suzi_smooth.h" />
@@ -208,6 +212,7 @@
     <ClInclude Include="resources\Models\tree.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\fragmentShaderCubemap.glsl" />
     <None Include="Shaders\fragmentShaderDefault.glsl" />
     <None Include="Shaders\fragmentShaderLightingLambert.glsl" />
     <None Include="Shaders\fragmentShaderLightingPhong.glsl" />
@@ -216,6 +221,7 @@
     <None Include="Shaders\fragmentShaderTextureDefault.glsl" />
     <None Include="Shaders\fragmentShaderTextureMultiple.glsl" />
     <None Include="Shaders\vertexShaderCamera.glsl" />
+    <None Include="Shaders\vertexShaderCubemap.glsl" />
     <None Include="Shaders\vertexShaderDefault.glsl" />
     <None Include="Shaders\vertexShaderLightingPhong.glsl" />
     <None Include="Shaders\vertexShaderSphere.glsl" />

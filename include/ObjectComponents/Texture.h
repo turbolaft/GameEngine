@@ -16,5 +16,6 @@ public:
 	void bindToShader(Shader* shader, const char* uniformName, unsigned int textureUnit);
 private:
 	unsigned int textureID;
+	std::string type;
 	GLenum textureTarget;
 };

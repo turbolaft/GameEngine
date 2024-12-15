@@ -6,6 +6,8 @@
 
 #include "Shader.h"
 #include "CameraObserver.h"
+#include "LightObserver.h"
+#include "Light.h"
 
 #define FORWARD 0
 #define BACKWARD 1
@@ -22,9 +24,16 @@ public:
 	void processMouseMovement(float xoffset, float yoffset, bool constrainPitch = true);
 	void processMouseScroll(float yOffset);
 	void addObserver(CameraObserver* shader);
-	void notifyObservers();
 	void removeObserver(CameraObserver* shader);
 	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+	void setFirstMouse(bool firstMouse);
+	void setCutoff(float cutOff);
+	void setOuterCutoff(float outerCutOff);
+	void setLightIterator(int lightIterator);
+	void addObserver(LightObserver* lightObserver);
+	void setLight(bool isLight);
+	bool isLightOn() { return isLight; }
+
 private:
     glm::vec3 position;
     glm::vec3 front;
@@ -37,11 +46,17 @@ private:
     float mouseSensitivity;
     float zoom;
 	bool firstMouse = true;
-	float lastX = 800.0f / 2.0;
-	float lastY = 600.0 / 2.0;
+	float lastX = 1000.0f / 2.0;
+	float lastY = 750.0 / 2.0;
+	float cutOff;
+	float outerCutOff;
+	int lightIterator;
+	bool isLight = false;
 
-	std::vector<CameraObserver*> observers;
+	std::vector<CameraObserver*> cameraObservers;
+	std::vector<LightObserver*> lightObservers;
 
 	void updateCameraVectors();
+	void notifyObservers();
 };
 

@@ -19,9 +19,10 @@ private:
 	GLFWwindow* window;
 	static float deltaTime;
 	int activeScene = 0;
-	Scene* scenes[3];
+	Scene* scenes[4];
 
 	void processInput();
 	void mouseCallback(GLFWwindow*, double, double);
+	bool changeScene(GLFWwindow*, int);
 };
 

@@ -21,6 +21,14 @@ void Model::onLightChange(glm::vec3 position, glm::vec3 color, int8_t type, int8
 	shader->update(position, color, type, iterator);
 }
 
+void Model::onLightChange(glm::vec3 position, glm::vec3 direction, int8_t type, float cutOff, float outerCutOff) {
+	shader->update(position, direction, type, cutOff, outerCutOff);
+}
+
+void Model::onLightChange(glm::vec3 position, glm::vec3 direction, int8_t type, float cutOff, float outerCutOff, int8_t iterator) {
+	shader->update(position, direction, type, cutOff, outerCutOff, iterator);
+}
+
 void Model::onCameraChange(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPosition) {
 	shader->update(view, projection, cameraPosition);
 }
@@ -69,4 +77,14 @@ void Model::setUpModel(Shader* shader, Camera* camera, Transformation* transform
 	this->setModel(transformation);
 	this->setTexture(texture);
 	this->update();
+}
+
+void Model::setMaterial(Material* material) {
+	this->material = material;
+	shader->setUniform("material", material);
+}
+
+void Model::setLightModel(unsigned int lightModel) {
+	this->lightModel = lightModel;
+	shader->setUniform("lightingModel", lightModel);
 }

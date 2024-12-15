@@ -2,6 +2,7 @@
 #include "SceneOne.h"
 #include "SceneTwo.h"
 #include "SceneThree.h"
+#include "SceneFour.h"
 
 Application::~Application() {
     // Clean up and close the application
@@ -69,15 +70,18 @@ void Application::run() {
     scenes[0] = new SceneOne();
     scenes[1] = new SceneTwo();
 	scenes[2] = new SceneThree();
+	scenes[3] = new SceneFour();
     scenes[0]->init(window);
     scenes[1]->init(window);
 	scenes[2]->init(window);
+	scenes[3]->init(window);
 
     float lastFrame = (float) glfwGetTime();
 	scenes[0]->activate();
 	
 	// Z-buffer
     glEnable(GL_DEPTH_TEST);
+	glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
     
     while (!glfwWindowShouldClose(window)) {
 
@@ -95,27 +99,39 @@ void Application::run() {
     }
 }
 
+bool Application::changeScene(GLFWwindow* window, int scene) {
+	if (glfwGetKey(window, GLFW_KEY_1 + scene) == GLFW_PRESS) {
+		scenes[activeScene]->deactivate();
+		activeScene = scene;
+		scenes[activeScene]->activate();
+
+		scenes[activeScene]->getController()->resetMouse();
+
+		return true;
+	}
+
+	return false;
+}
+
 void Application::processInput() {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, true);
 	}
 
-	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
-		scenes[activeScene]->deactivate();
-		activeScene = 0;
-		scenes[activeScene]->activate();
+	if (changeScene(window, 0)) {
+		return;
 	}
 
-	if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
-		scenes[activeScene]->deactivate();
-		activeScene = 1;
-		scenes[activeScene]->activate();
+	if (changeScene(window, 1)) {
+		return;
 	}
 
-	if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) {
-		scenes[activeScene]->deactivate();
-		activeScene = 2;
-		scenes[activeScene]->activate();
+	if (changeScene(window, 2)) {
+		return;
+	}
+
+	if (changeScene(window, 3)) {
+		return;
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {

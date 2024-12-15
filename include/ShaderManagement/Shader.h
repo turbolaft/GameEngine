@@ -9,6 +9,8 @@
 
 #include <glm/glm.hpp>
 
+#include "Material.h"
+
 class Shader
 {
 public:
@@ -23,10 +25,13 @@ public:
 	void setUniform(const std::string& name, glm::vec3 value);
 	void setUniform(const std::string& name, float value);
 	void setUniform(const std::string& name, unsigned int value);
+	void setUniform(const std::string& name, Material* material);
 	void update(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPosition);
 	void update(const glm::vec3& position, const glm::vec3& color);
 	void update(const glm::vec3& cameraPos);
 	void update(const glm::vec3& position, const glm::vec3& color, int8_t type, int8_t i);
+	void update(const glm::vec3& position, const glm::vec3& color, int8_t type, float cutOff, float outerCutOff);
+	void update(const glm::vec3& position, const glm::vec3& color, int8_t type, float cutOff, float outerCutOff, int8_t i);
 private:
 	GLuint shaderProgram;
 

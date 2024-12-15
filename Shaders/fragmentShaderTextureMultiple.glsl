@@ -10,7 +10,7 @@ in vec2 uvc;
 uniform vec3 cameraPosition;
 uniform sampler2D textureUnitID;
 
-#define NUM_LIGHTS 5
+#define NUM_LIGHTS 10
 #define POINT_LIGHT 1U
 #define DIRECTIONAL_LIGHT 2U
 #define REFLECTOR_LIGHT 3U
@@ -20,12 +20,19 @@ struct Light {
     vec3 color;
     vec3 direction;
 
+    float cutOff;
+    float outerCutOff;
+
     unsigned int type;
 };
 
 const float constant = 1.0;
 const float linear = 0.09;
 const float quadratic = 0.032;
+
+const float constantSpotLight = 1.0f;
+const float linearSpotLight = 0.022f;
+const float quadraticSpotLight = 0.0019f;
 
 uniform Light lights[NUM_LIGHTS];
 
@@ -90,7 +97,30 @@ void main(void) {
             //out_Color = vec4(0.0, 1.0, 0.0, 1.0);
 
             //return;
-		} 
+		} else if (lights[i].type == REFLECTOR_LIGHT) {
+            float ambientStrength = 0.1;
+            vec4 ambient = ambientStrength * vec4(lights[i].color, 1.0);
+
+            vec3 lightVector = normalize(lights[i].position - ex_worldPosition.xyz);
+            float distance = length(lights[i].position - ex_worldPosition.xyz);
+
+            float theta = dot(lightVector, normalize(-lights[i].direction));
+            float epsilon = lights[i].cutOff - lights[i].outerCutOff;
+            float intensity = clamp((theta - lights[i].outerCutOff) / epsilon, 0.0, 1.0);
+
+            float attenuation = 1.0 / (constantSpotLight + linearSpotLight * distance + quadraticSpotLight * distance * distance);
+
+            float diff = max(dot(normal, lightVector), 0.0);
+            vec4 diffuse = vec4(diff * lights[i].color, 1.0) * intensity;
+
+            float spec = 0.0;
+            vec3 reflectDir = reflect(-lightVector, normal);
+            spec = pow(max(dot(viewDir, reflectDir), 0.0), 8);
+
+            vec4 specular = vec4(spec * lights[i].color, 1.0) * intensity;
+
+            result += (ambient + diffuse + specular) * attenuation;
+        }
     }
 
     vec4 textureColor = texture(textureUnitID, uvc);

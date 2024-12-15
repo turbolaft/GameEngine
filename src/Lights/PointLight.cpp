@@ -21,17 +21,6 @@ PointLight::PointLight(glm::vec3 position, glm::vec3 color, int8_t iterator, Mod
 	this->setPosition(position);
 }
 
-void PointLight::notifyObservers() {
-	for (LightObserver* observer : observers) {
-		if (iterator != -1) {
-			observer->onLightChange(position, color, POINT_LIGHT, iterator);
-		}
-		else {
-			observer->onLightChange(position, color, POINT_LIGHT);
-		}
-	}
-}
-
 void PointLight::addObserver(Model* light) {
 	observers.push_back(light);
 
@@ -41,16 +30,6 @@ void PointLight::addObserver(Model* light) {
 	else {
 		light->onLightChange(position, color, POINT_LIGHT);
 	}
-}
-
-glm::vec3 PointLight::getPosition() {
-	return position;
-}
-
-void PointLight::setPosition(glm::vec3 position) {
-	this->position = position;
-
-	notifyObservers();
 }
 
 void PointLight::setDynamicDirection(glm::vec3 direction, glm::vec3 ends[]) {
@@ -74,5 +53,26 @@ void PointLight::dynamicMove() {
 		}
 
 		notifyObservers();
+	}
+}
+
+glm::vec3 PointLight::getPosition() {
+	return position;
+}
+
+void PointLight::setPosition(glm::vec3 position) {
+	this->position = position;
+
+	notifyObservers();
+}
+
+void PointLight::notifyObservers() {
+	for (LightObserver* observer : observers) {
+		if (iterator != -1) {
+			observer->onLightChange(position, color, POINT_LIGHT, iterator);
+		}
+		else {
+			observer->onLightChange(position, color, POINT_LIGHT);
+		}
 	}
 }

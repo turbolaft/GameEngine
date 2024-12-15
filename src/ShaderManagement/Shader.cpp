@@ -92,6 +92,13 @@ void Shader::setUniform(const std::string& name, unsigned int value) {
 	glUniform1ui(glGetUniformLocation(shaderProgram, name.c_str()), value);
 }
 
+void Shader::setUniform(const std::string& name, Material* material) {
+	setUniform(name + ".ambient", material->getAmbient());
+	setUniform(name + ".diffuse", material->getDiffuse());
+	setUniform(name + ".specular", material->getSpecular());
+	setUniform(name + ".shininess", material->getShininess());
+}
+
 void Shader::update(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPosition) {
 	use();
 	setUniform("view", view);
@@ -122,6 +129,28 @@ void Shader::update(const glm::vec3& position, const glm::vec3& color, int8_t ty
 		setUniform(lightIndex + ".direction", position);
 	}
 	setUniform(lightIndex + ".color", color);
+}
+
+void Shader::update(const glm::vec3& position, const glm::vec3& direction, int8_t type, float cutOff, float outerCutOff) {
+	use();
+	setUniform("light.position", position);
+	setUniform("light.color", direction);
+	setUniform("light.color", glm::vec3(1.0f, 1.0f, 1.0f));
+	setUniform("light.direction", (unsigned int)type);
+	setUniform("light.cutOff", cutOff);
+	setUniform("light.outerCutOff", outerCutOff);
+}
+
+void Shader::update(const glm::vec3& position, const glm::vec3& direction, int8_t type, float cutOff, float outerCutOff, int8_t i) {
+	use();
+	std::string lightIndex = "lights[" + std::to_string(i) + "]";
+
+	setUniform(lightIndex + ".type", (unsigned int)type);
+	setUniform(lightIndex + ".position", position);
+	setUniform(lightIndex + ".direction", direction);
+	setUniform(lightIndex + ".color", glm::vec3(1.0f, 1.0f, 1.0f));
+	setUniform(lightIndex + ".cutOff", cutOff);
+	setUniform(lightIndex + ".outerCutOff", outerCutOff);
 }
 
 void Shader::checkShaderCompileError(GLuint shader, const std::string& type) {

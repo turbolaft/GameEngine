@@ -10,6 +10,7 @@ public:
 	~Controller();
 	void pressKey(GLFWwindow*, int);
 	void mouseCallback(GLFWwindow*, double, double);
+	void resetMouse() { camera->setFirstMouse(true); }
 private:
 	Camera* camera;
 };

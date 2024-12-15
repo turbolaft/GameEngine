@@ -26,7 +26,11 @@ void Scene::release() {
 void Scene::addModel(Model* model) {
 	models.push_back(model);
 
-	camera->addObserver(model);
+	camera->addObserver((CameraObserver*) model);
+
+	if (camera->isLightOn()) {
+		camera->addObserver((LightObserver*)model);
+	}
 }
 
 void Scene::addLight(Light* light) {

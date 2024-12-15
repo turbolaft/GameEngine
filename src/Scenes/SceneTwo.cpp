@@ -17,6 +17,7 @@
 #include "DirectionalLight.h"
 #include "Rectangle.h"
 #include "Models/rectangle.h"
+#include "Material.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -24,9 +25,26 @@
 
 void SceneTwo::init(GLFWwindow* window)
 {
-	camera = new Camera(glm::vec3(10.0f, 5.0f, -10.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, -10.0f);
+	camera = new Camera(glm::vec3(10.0f, 15.0f, 10.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, -45.0f);
+	camera->setCutoff(12.5f);
+	camera->setOuterCutoff(20.0f);
+	camera->setLightIterator(5);
+	camera->setLight(true);
 	this->window = window;
 	this->controller = new Controller(camera);
+
+	Material* treeMaterial = new Material(
+		glm::vec3(0.05f, 0.035f, 0.02f), // Ambient (darker brown)
+		glm::vec3(0.03f, 0.2f, 0.1f),    // Diffuse (moderate brown)
+		glm::vec3(0.05f, 0.05f, 0.05f),  // Specular (almost none)
+		64.0f                            // Shininess (rough surface)
+	);
+	Material* bushMaterial = new Material(
+		glm::vec3(0.0f, 0.1f, 0.0f),   // Ambient (dark green)
+		glm::vec3(0.2f, 0.5f, 0.2f),   // Diffuse (vibrant green)
+		glm::vec3(0.1f, 0.3f, 0.1f),   // Specular (slightly glossy)
+		16.0f                           // Shininess (smooth leaves)
+	);
 
 	for (int i = 0; i < 50; i++) {
 		Shader* shader = new Shader("./Shaders/vertexShaderLightingPhong.glsl", "./Shaders/fragmentShaderPhongMultiple.glsl");
@@ -52,15 +70,21 @@ void SceneTwo::init(GLFWwindow* window)
 		treeModel->setProjection(camera->getProjectionMatrix());
 		treeModel->setView(camera->getViewMatrix());
 		treeModel->update();
+		treeModel->setMaterial(treeMaterial);
+		treeModel->setLightModel(PHONG);
 		this->addModel(treeModel);
+
+		Shader* bushShader = new Shader("./Shaders/vertexShaderLightingPhong.glsl", "./Shaders/fragmentShaderPhongMultiple.glsl");
 
 		Model* bushModel = new Bush();
 		bushModel->createModel(bushes, sizeof(float) * 54210);
-		bushModel->setShader(shader);
+		bushModel->setShader(bushShader);
 		bushModel->setModel(transformation);
 		bushModel->setProjection(camera->getProjectionMatrix());
 		bushModel->setView(camera->getViewMatrix());
 		bushModel->update();
+		bushModel->setMaterial(bushMaterial);
+		bushModel->setLightModel(BLINN_PHONG);
 		this->addModel(bushModel);
 	}
 
@@ -74,6 +98,7 @@ void SceneTwo::init(GLFWwindow* window)
 	rect->setUpModel(new Shader("./Shaders/vertexShaderTexturePhong.glsl", "./Shaders/fragmentShaderTextureMultiple.glsl"),
 		camera, rectTransformation, texture);
 	this->addModel(rect);
+	camera->addObserver((LightObserver*)rect);
 
 	glm::vec3 lightPositions[] = {
 		 glm::vec3(-1.0f, 3.0f, .0f),
@@ -108,15 +133,15 @@ void SceneTwo::init(GLFWwindow* window)
 		lightModel->setProjection(camera->getProjectionMatrix());
 		lightModel->setView(camera->getViewMatrix());
 		lightModel->update();
-		camera->addObserver(lightModel);
+		camera->addObserver((CameraObserver*) lightModel);
 
-		this->addLight(pointLight);
+		//this->addLight(pointLight);
 	}
 
 	//lights.push_back(new DirectionalLight(glm::vec3(-0.2f, -1.0f, -0.3f), glm::vec3(0.0f, 1.0f, 0.0f), 4));
 
-	DirectionalLight* directionalLight = new DirectionalLight(glm::vec3(50.0f, 20.0f, -10.0f), glm::vec3(0.0f, 0.7f, 0.0f), 4);
-	this->addLight(directionalLight);
+	DirectionalLight* directionalLight = new DirectionalLight(glm::vec3(-1.0f, -1.0f, 0.0f), glm::vec3(1.0f, 0.6f, 0.3f), 4);
+	//this->addLight(directionalLight);
 	//directionalLight->setDirection(glm::vec3(50.0f, 20.0f, -10.0f));
 }
 

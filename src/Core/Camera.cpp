@@ -15,7 +15,7 @@ glm::mat4 Camera::getViewMatrix()
 
 glm::mat4 Camera::getProjectionMatrix()
 {
-	return glm::perspective(glm::radians(zoom), 800.0f / 600.0f, 0.1f, 100.0f);
+	return glm::perspective(glm::radians(zoom), 1000.0f / 750.0f, 0.1f, 100.0f);
 }
 
 void Camera::processKeyboard(int direction, float deltaTime)
@@ -67,6 +67,9 @@ void Camera::processMouseScroll(float yOffset) {
 
 void Camera::updateCameraVectors()
 {
+	// pitch - around x
+	// yaw - around y
+	// roll - around z
 	glm::vec3 newFront;
 	newFront.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 	newFront.y = sin(glm::radians(pitch));
@@ -80,20 +83,12 @@ void Camera::updateCameraVectors()
 
 void Camera::addObserver(CameraObserver* shader)
 {
-	observers.push_back(shader);
-}
-
-void Camera::notifyObservers()
-{
-	for (auto observer : observers)
-	{
-		observer->onCameraChange(getViewMatrix(), getProjectionMatrix(), position);
-	}
+	cameraObservers.push_back(shader);
 }
 
 void Camera::removeObserver(CameraObserver* shader)
 {
-	observers.erase(std::remove(observers.begin(), observers.end(), shader), observers.end());
+	cameraObservers.erase(std::remove(cameraObservers.begin(), cameraObservers.end(), shader), cameraObservers.end());
 }
 
 void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos)
@@ -112,4 +107,62 @@ void Camera::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	lastY = (float) ypos;
 
 	this->processMouseMovement(xoffset, yoffset);
+}
+
+void Camera::setFirstMouse(bool firstMouse)
+{
+	this->firstMouse = firstMouse;
+}
+
+void Camera::setCutoff(float cutOff)
+{
+	this->cutOff = cutOff;
+}
+
+void Camera::setOuterCutoff(float outerCutOff)
+{
+	this->outerCutOff = outerCutOff;
+}
+
+void Camera::setLightIterator(int lightIterator)
+{
+	this->lightIterator = lightIterator;
+}
+
+void Camera::addObserver(LightObserver* lightObserver)
+{
+	lightObservers.push_back(lightObserver);
+
+	if (lightIterator != -1) {
+		lightObserver->onLightChange(position, front, SPOT_LIGHT, cutOff, outerCutOff, lightIterator);
+	}
+	else {
+		lightObserver->onLightChange(position, front, SPOT_LIGHT, cutOff, outerCutOff);
+	}
+}
+
+void Camera::notifyObservers() {
+	for (auto observer : cameraObservers)
+	{
+		observer->onCameraChange(getViewMatrix(), getProjectionMatrix(), position);
+	}
+
+	if (isLight) {
+		
+		for (auto observer : lightObservers)
+		{
+			if (lightIterator != -1) {
+				observer->onLightChange(position, front, SPOT_LIGHT, cutOff, outerCutOff, lightIterator);
+			}
+			else {
+				observer->onLightChange(position, front, SPOT_LIGHT, cutOff, outerCutOff);
+			}
+		}
+
+	}
+}
+
+void Camera::setLight(bool isLight)
+{
+	this->isLight = isLight;
 }
