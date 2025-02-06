@@ -64,6 +64,11 @@ void Application::init() {
 		Application* app = static_cast<Application*>(glfwGetWindowUserPointer(window));
 		app->mouseCallback(window, xPos, yPos);
 	});
+
+	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods) {
+		Application* app = static_cast<Application*>(glfwGetWindowUserPointer(window));
+		app->mouseClickCallback(window, button, action, mods);
+	});
 }
 
 void Application::run() {
@@ -150,6 +155,10 @@ void Application::processInput() {
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
 		scenes[activeScene]->getController()->pressKey(window, GLFW_KEY_D);
 	}
+}
+
+void Application::mouseClickCallback(GLFWwindow* window, int button, int action, int mods) {
+	scenes[activeScene]->getController()->mouseClickCallback(window, button, action, mods);
 }
 
 void Application::mouseCallback(GLFWwindow* window, double xPos, double yPos) {

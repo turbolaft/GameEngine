@@ -50,6 +50,7 @@ void Skybox::createModel(const float points[], int size)
 void Skybox::draw()
 {
 	glDepthMask(GL_FALSE);
+	//glDepthFunc(GL_LEQUAL);// change depth function so depth test passes when values are equal to depth buffer's content
 	shader->use();
 	va->bind();
 	//glDepthMask(GL_FALSE);
@@ -59,4 +60,5 @@ void Skybox::draw()
 	//glDepthMask(GL_TRUE);
 	shader->unuse();
 	glDepthMask(GL_TRUE);
+	//glDepthMask(GL_LESS);
 }

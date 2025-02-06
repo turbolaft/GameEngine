@@ -4,11 +4,14 @@
 #include "ModelObject.h"
 #include "Models/skycube.h"
 #include "Translate.h"
+#include "TransformationComponent.h"
+#include "Scale.h"
 
 void SceneFour::init(GLFWwindow* window)
 {
 	Shader* shader = new Shader("./Shaders/vertexShaderCubemap.glsl", "./Shaders/fragmentShaderCubemap.glsl");
 	this->controller = new Controller(camera);
+	controller->setScene(this);
 	this->window = window;
 
 	Shader* shaderTextureHouse = new Shader("./Shaders/vertexShaderTextureDefault.glsl", "./Shaders/fragmentShaderTextureDefault.glsl");
@@ -51,14 +54,30 @@ void SceneFour::init(GLFWwindow* window)
 	for (auto& mesh : modelObject->getMeshes()) {
 		this->addModel(mesh);
 	}
+
+	Shader* shaderTextureTree = new Shader("./Shaders/vertexShaderTextureDefault.glsl", "./Shaders/fragmentShaderTextureDefault.glsl");
+	ModelObject* modelObjectTree = new ModelObject("./resources/ObjModels/tree.obj", shaderTextureTree);
+
+	modelObjectTree->setCamera(camera);
+	Transformation* treeTransformation = new TransformationComponent();
+	treeTransformation->addChild(new Scale(glm::vec3(0.1f, 0.1f, 0.1f)));
+	treeTransformation->addChild(new Translate(glm::vec3(50.0f, 0.0f, 0.0f)));
+	modelObjectTree->setTransformation(treeTransformation);
+	modelObjectTree->update();
+	Texture* textureToBeBindTree = new Texture(GL_TEXTURE_2D, "resources/ObjModels/tree.png");
+	modelObjectTree->setTexture(textureToBeBindTree);
+
+	for (auto& mesh : modelObjectTree->getMeshes()) {
+		this->addModel(mesh);
+	}
 }
 
 void SceneFour::activate()
 {
-	glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 void SceneFour::deactivate()
 {
-	glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	//glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 }

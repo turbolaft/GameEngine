@@ -213,6 +213,14 @@ void ModelObject::setTransformation(Transformation* transformation)
 	}
 }
 
+void ModelObject::update()
+{
+	for (unsigned int i = 0; i < meshes.size(); i++)
+	{
+		meshes[i]->update();
+	}
+}
+
 //unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma)
 //{
 //	std::string filename = std::string(path);

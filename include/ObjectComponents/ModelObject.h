@@ -28,7 +28,7 @@ public:
 	void setTransformation(Transformation* transformation);
 	std::vector<Mesh*>& getMeshes() { return meshes; }
 	void setTexture(Texture* texture);
-
+	void update();
 private:
     // model data
     std::vector<Mesh*> meshes;

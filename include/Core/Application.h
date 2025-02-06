@@ -23,6 +23,7 @@ private:
 
 	void processInput();
 	void mouseCallback(GLFWwindow*, double, double);
+	void mouseClickCallback(GLFWwindow*, int, int, int);
 	bool changeScene(GLFWwindow*, int);
 };
 

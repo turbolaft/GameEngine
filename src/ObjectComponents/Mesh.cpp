@@ -61,6 +61,9 @@ void Mesh::setSkybox(bool isSkybox)
 void Mesh::draw() {
 
     // draw mesh
+	if (isSkybox) {
+		glDepthMask(GL_FALSE);
+	}
     shader->use();
 	va->bind();
     if (transformation && transformation->IsDynamic()) {
@@ -74,6 +77,8 @@ void Mesh::draw() {
 	if (texture != nullptr)
 		texture->unbindTexture();
 	shader->unuse();
-
+	if (isSkybox) {
+		glDepthMask(GL_TRUE);
+	}
     glActiveTexture(GL_TEXTURE0);
 }
