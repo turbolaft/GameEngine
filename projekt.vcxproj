@@ -219,6 +219,8 @@
     <None Include="Shaders\fragmentShaderPhongMultiple.glsl" />
     <None Include="Shaders\fragmentShaderSphere.glsl" />
     <None Include="Shaders\fragmentShaderTextureDefault.glsl" />
+    <None Include="Shaders\fragmentShaderTextureMesh.glsl" />
+    <None Include="Shaders\fragmentShaderTextureMeshMultiple.glsl" />
     <None Include="Shaders\fragmentShaderTextureMultiple.glsl" />
     <None Include="Shaders\vertexShaderCamera.glsl" />
     <None Include="Shaders\vertexShaderCubemap.glsl" />

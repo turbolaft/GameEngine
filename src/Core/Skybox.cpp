@@ -49,12 +49,14 @@ void Skybox::createModel(const float points[], int size)
 
 void Skybox::draw()
 {
-	//glDepthMask(GL_FALSE);
+	glDepthMask(GL_FALSE);
 	shader->use();
 	va->bind();
+	//glDepthMask(GL_FALSE);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	va->unbind();
-	shader->unuse();
 	//glDepthMask(GL_TRUE);
+	shader->unuse();
+	glDepthMask(GL_TRUE);
 }

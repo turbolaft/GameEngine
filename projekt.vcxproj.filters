@@ -343,6 +343,12 @@
     <None Include="Shaders\fragmentShaderCubemap.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Shaders\fragmentShaderTextureMesh.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\fragmentShaderTextureMeshMultiple.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\Textures\wooden_fence.png">

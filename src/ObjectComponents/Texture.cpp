@@ -64,3 +64,7 @@ void Texture::bindToShader(Shader* shader, const char* uniformName, unsigned int
 	this->unbindTexture();
 }
 
+void Texture::setType(const std::string& type) {
+	this->type = type;
+}
+

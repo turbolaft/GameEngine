@@ -31,8 +31,8 @@ const float linear = 0.09;
 const float quadratic = 0.032;
 
 const float constantSpotLight = 1.0f;
-const float linearSpotLight = 0.022f;
-const float quadraticSpotLight = 0.0019f;
+const float linearSpotLight = 0.014f;
+const float quadraticSpotLight = 0.0007f;
 
 uniform Light lights[NUM_LIGHTS];
 
@@ -120,6 +120,7 @@ void main(void) {
             vec4 specular = vec4(spec * lights[i].color, 1.0) * intensity;
 
             result += (ambient + diffuse + specular) * attenuation;
+
         }
     }
 

@@ -26,8 +26,8 @@
 void SceneTwo::init(GLFWwindow* window)
 {
 	camera = new Camera(glm::vec3(10.0f, 15.0f, 10.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, -45.0f);
-	camera->setCutoff(12.5f);
-	camera->setOuterCutoff(20.0f);
+	camera->setCutoff(glm::cos(glm::radians(12.5f)));
+	camera->setOuterCutoff(glm::cos(glm::radians(20.0f)));
 	camera->setLightIterator(5);
 	camera->setLight(true);
 	this->window = window;

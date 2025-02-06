@@ -6,5 +6,8 @@ in vec2 uvc;
 
 void main()
 {
-	FragColor = texture(textureUnitID, uvc);
+	vec2 vcc = uvc;
+	vcc.y = 1.0 - vcc.y;
+	
+	FragColor = texture(textureUnitID, vcc);
 }

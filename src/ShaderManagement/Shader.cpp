@@ -134,7 +134,7 @@ void Shader::update(const glm::vec3& position, const glm::vec3& color, int8_t ty
 void Shader::update(const glm::vec3& position, const glm::vec3& direction, int8_t type, float cutOff, float outerCutOff) {
 	use();
 	setUniform("light.position", position);
-	setUniform("light.color", direction);
+	setUniform("light.direction", direction);
 	setUniform("light.color", glm::vec3(1.0f, 1.0f, 1.0f));
 	setUniform("light.direction", (unsigned int)type);
 	setUniform("light.cutOff", cutOff);

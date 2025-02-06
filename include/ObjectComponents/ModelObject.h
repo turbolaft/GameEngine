@@ -8,26 +8,32 @@
 #include <assimp/Importer.hpp>
 #include "Shader.h"
 #include "Mesh.h"
+#include "Texture.h"
+#include "Camera.h"
 
 #include <assimp/scene.h>
 
 class ModelObject
 {
 public:
-    ModelObject(char* path)
+    ModelObject(const char* path, Shader* shader, bool isSkybox = false)
     {
-        loadModel(path);
+        loadModel(path, shader);
+        if (isSkybox)
+		    setSkyBox();
     }
     void draw();
 	void setShader(Shader* shader);
+	void setCamera(Camera* camera);
+	void setTransformation(Transformation* transformation);
+	std::vector<Mesh*>& getMeshes() { return meshes; }
+	void setTexture(Texture* texture);
+
 private:
     // model data
-    std::vector<Mesh> meshes;
+    std::vector<Mesh*> meshes;
     std::string directory;
 
-    void loadModel(std::string path);
-    void processNode(aiNode* node, const aiScene* scene);
-    Mesh processMesh(aiMesh* mesh, const aiScene* scene);
-    std::vector<Texture_t> loadMaterialTextures(aiMaterial* mat, aiTextureType type,
-        std::string typeName);
+    void loadModel(std::string path, Shader* shader);
+	void setSkyBox();
 };

@@ -13,6 +13,8 @@ public:
 	void bindTexture();
 	void unbindTexture();
 	void deleteTexture();
+	void setType(const std::string& type);
+	std::string getType() { return type; }
 	void bindToShader(Shader* shader, const char* uniformName, unsigned int textureUnit);
 private:
 	unsigned int textureID;

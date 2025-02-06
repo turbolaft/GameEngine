@@ -1,4 +1,6 @@
 #include "Camera.h"
+#include "Skybox.h"
+#include "Mesh.h"
 
 Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
 	: position(position), worldUp(up), yaw(yaw), pitch(pitch), movementSpeed(2.5f), mouseSensitivity(0.03f), zoom(45.0f)
@@ -78,6 +80,11 @@ void Camera::updateCameraVectors()
 	right = glm::normalize(glm::cross(front, worldUp));
 	up = glm::normalize(glm::cross(right, front));
 
+	/*printf("Camera position: %f %f %f\n", position.x, position.y, position.z);
+	printf("Camera up: %f %f %f\n", up.x, up.y, up.z);
+	printf("Camera pitch: %f\n", pitch);
+	printf("Camera yaw: %f\n", yaw);*/
+
 	notifyObservers();
 }
 
@@ -144,6 +151,24 @@ void Camera::addObserver(LightObserver* lightObserver)
 void Camera::notifyObservers() {
 	for (auto observer : cameraObservers)
 	{
+		if (Skybox* skybox = dynamic_cast<Skybox*>(observer)) {
+			if (skybox->getSkybox()) {
+
+				observer->onCameraChange(glm::mat4(glm::mat3(getViewMatrix())), getProjectionMatrix(), position);
+
+				continue;
+			}
+		}
+
+		if (Mesh* mesh = dynamic_cast<Mesh*>(observer)) {
+			if (mesh->getSkybox()) {
+
+				observer->onCameraChange(glm::mat4(glm::mat3(getViewMatrix())), getProjectionMatrix(), position);
+
+				continue;
+			}
+		}
+
 		observer->onCameraChange(getViewMatrix(), getProjectionMatrix(), position);
 	}
 
